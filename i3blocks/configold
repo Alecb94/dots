@@ -1,0 +1,46 @@
+#i3blocks config file
+
+command=$SCRIPT_DIR/$BLOCK_NAME
+separator_block_width=15
+markup=none
+
+[feed]
+instance=http://goo.gl/bR2hcp
+label=
+interval=60
+
+[wifi]
+label=wlp3s0 Public IP
+instance=wlp3s0
+color=#00FF00
+command=dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{ print $2}' 
+interval=10
+
+[cpu_usage]
+label=CPU
+command=top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}'
+interval=1
+
+[battery]
+label=BAT
+label=⚡
+command=upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E -o '[0-9]{1,3}?%' 
+instance=1
+interval=1
+
+[volume]
+label=♪
+command=amixer get Master | grep -E -o '[0-9]{1,3}?%' | head -1
+instance=1
+interval=1
+
+[time]
+command=date '+%D %T'
+interval=1
+
+#[clickme]
+#full_text=Click me!
+#command= firefox
+#min_width=button=1 x=1366 y=768
+#align=lef 
+
